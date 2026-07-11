@@ -18,22 +18,28 @@ async function getProducts() {
   return parsed.data;
 }
 
-export default async function Home() {
+
+export default async function ProductsPage() {
+
+  
   const products = await getProducts();
 
   return (
-    <div className="max-w-6xl mx-auto p-5">
-      <h1 className="text-3xl font-bold mb-5">
-        Car Accessories
+    <div className="container mx-auto py-10">
+
+      <h1 className="text-3xl font-bold mb-8">
+        All Products
       </h1>
 
-      <div className="grid md:grid-cols-3 gap-5">
-        {products.map((product) => (
+      <div className="grid md:grid-cols-4 gap-5">
+
+        {products.map(product => (
           <ProductCard
             key={product.id}
             product={product}
           />
         ))}
+
       </div>
     </div>
   );
