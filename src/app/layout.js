@@ -1,6 +1,7 @@
 import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Qiftly Auto",
@@ -19,6 +20,7 @@ export default function RootLayout({
         {children}
 
         <WhatsAppButton />
+        <Footer/>
       </body>
     </html>
   );
