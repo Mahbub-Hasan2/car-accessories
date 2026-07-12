@@ -1,71 +1,187 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
+
+  const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const res = await fetch("/api/products");
+      const data = await res.json();
+      setProducts(data);
+    }
+
+    loadProducts();
+  }, []);
+
+  const categories = useMemo(() => {
+    return [
+      "All",
+      ...new Set(
+        products.map((item) => item.category)
+      ),
+    ];
+  }, [products]);
+
+  const suggestions = useMemo(() => {
+
+    if (!query.trim()) return [];
+
+    const keywords = products.flatMap(
+      (item) =>
+        item.keywords
+          ?.split(",")
+          .map((k) => k.trim())
+          .filter(Boolean)
+    );
+
+    return [...new Set(keywords)]
+      .filter((keyword) =>
+        keyword
+          .toLowerCase()
+          .includes(
+            query.toLowerCase()
+          )
+      )
+      .slice(0, 10);
+
+  }, [query, products]);
+
+  function handleSearch(e) {
+
+    e.preventDefault();
+
+    const params = new URLSearchParams();
+
+    if (query.trim()) {
+      params.set("search", query);
+    }
+
+    if (category !== "All") {
+      params.set("category", category);
+    }
+
+    router.push(`/products?${params}`);
+    setQuery("");
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b">
+
       <div className="max-w-7xl mx-auto px-4">
 
-        <div className="flex items-center justify-between h-16">
+        <div className="h-16 flex items-center gap-4">
 
-          {/* Logo */}
           <Link
             href="/"
-            className="text-2xl font-bold text-slate-900"
+            className="font-bold text-xl"
           >
-            Qiftly
+            Qiftly Auto
           </Link>
 
-          {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center gap-8">
+          <form
+            onSubmit={handleSearch}
+            className="hidden md:flex flex-1 gap-2 relative"
+          >
 
-            <Link
-              href="/"
-              className="text-slate-700 hover:text-black"
+            <select
+              value={category}
+              onChange={(e) =>
+                setCategory(e.target.value)
+              }
+              className="border rounded-lg px-3"
             >
-              Home
-            </Link>
+              {categories.map((cat) => (
+                <option
+                  key={cat}
+                  value={cat}
+                >
+                  {cat}
+                </option>
+              ))}
+            </select>
 
-            <Link
-              href="/products"
-              className="text-slate-700 hover:text-black"
+            <div className="relative flex-1">
+
+              <input
+                value={query}
+                onChange={(e) =>
+                  setQuery(e.target.value)
+                }
+                placeholder="Search products..."
+                className="w-full border rounded-lg px-4 py-2"
+              />
+
+              {suggestions.length > 0 && (
+
+                <div className="absolute top-full left-0 right-0 bg-white border rounded-xl shadow-lg mt-1 z-50">
+
+                  {suggestions.map((keyword) => (
+
+                    <button
+                      key={keyword}
+                      type="button"
+                      onClick={() => {
+
+                        router.push(
+                          `/products?search=${encodeURIComponent(
+                            keyword
+                          )}`
+                        );
+
+                        setQuery("");
+                      }}
+                      className="block w-full text-left p-3 hover:bg-gray-100"
+                    >
+                      🔍 {keyword}
+                    </button>
+
+                  ))}
+
+                </div>
+
+              )}
+
+            </div>
+
+            <button
+              type="submit"
+              className="bg-black text-white px-5 rounded-lg"
             >
-              Products
-            </Link>
+              Search
+            </button>
 
-            <Link
-              href="/about"
-              className="text-slate-700 hover:text-black"
-            >
-              About
-            </Link>
+          </form>
 
-            <Link
-              href="/contact"
-              className="text-slate-700 hover:text-black"
-            >
-              Contact
-            </Link>
+          <Link
+            href="/products"
+            className="hidden lg:block"
+          >
+            Products
+          </Link>
 
-          </nav>
-
-          {/* WhatsApp Button */}
           <a
             href="https://wa.me/97471083700"
             target="_blank"
-            className="hidden md:inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+            className="hidden md:block bg-green-600 text-white px-4 py-2 rounded-lg"
           >
             WhatsApp
           </a>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden"
+            className="lg:hidden"
+            onClick={() =>
+              setMobileOpen(!mobileOpen)
+            }
           >
             ☰
           </button>
@@ -73,53 +189,6 @@ export default function Navbar() {
         </div>
 
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden border-t bg-white">
-
-          <nav className="flex flex-col p-4 gap-4">
-
-            <Link
-              href="/"
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </Link>
-
-            <Link
-              href="/products"
-              onClick={() => setIsOpen(false)}
-            >
-              Products
-            </Link>
-
-            <Link
-              href="/about"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
-
-            <Link
-              href="/contact"
-              onClick={() => setIsOpen(false)}
-            >
-              Contact
-            </Link>
-
-            <a
-              href="https://wa.me/97471083700"
-              target="_blank"
-              className="bg-green-600 text-white px-4 py-2 rounded-lg text-center"
-            >
-              WhatsApp Order
-            </a>
-
-          </nav>
-
-        </div>
-      )}
     </header>
   );
 }

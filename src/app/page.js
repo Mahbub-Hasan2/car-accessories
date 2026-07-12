@@ -1,7 +1,11 @@
-import ProductCard from "@/components/ProductCard";
 import Papa from "papaparse";
 
+import Hero from "@/components/Hero";
+import FeaturedProducts from "@/components/FeaturedProducts";
+import ProductCard from "@/components/ProductCard";
+
 async function getProducts() {
+
   const res = await fetch(
     "https://docs.google.com/spreadsheets/d/1rHypvbs4XquG6v97B4UTy1hEisWtCyy3TTWXBEiBl3M/export?format=csv&gid=0",
     {
@@ -13,28 +17,49 @@ async function getProducts() {
 
   const parsed = Papa.parse(csvText, {
     header: true,
+    skipEmptyLines: true,
   });
 
   return parsed.data;
 }
 
 export default async function Home() {
+
   const products = await getProducts();
 
-  return (
-    <div className="max-w-6xl mx-auto p-5">
-      <h1 className="text-3xl font-bold mb-5">
-        Car Accessories
-      </h1>
 
-      <div className="grid md:grid-cols-3 gap-5">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
-      </div>
-    </div>
+const featuredProduct = products.find(
+  (item) => item.featured === "yes"
+);
+
+  return (
+    <>
+      <Hero product={featuredProduct} />
+
+      <FeaturedProducts
+        products={products}
+      />
+
+      <section className="max-w-7xl mx-auto px-2 md:px-5 py-2 md:py-10">
+
+        <h2 className="text-3xl font-bold mb-8">
+          Latest Products
+        </h2>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5">
+
+          {products
+            .slice(0, 8)
+            .map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+              />
+            ))}
+
+        </div>
+
+      </section>
+    </>
   );
 }
