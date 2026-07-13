@@ -4,7 +4,7 @@ export default function Hero({ product }) {
     return (
         <section className="bg-gradient-to-b from-gray-50 to-white">
 
-            <div className="max-w-7xl mx-auto px-4 md:px-6 py-5 md:py-20">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 py-5 md:py-10">
 
                 <div className="grid lg:grid-cols-2 gap-10 items-center">
 
@@ -68,63 +68,151 @@ export default function Hero({ product }) {
                     </div>
 
                     {/* Right Side Featured Product */}
-                    <div className="hidden md:block">
+                    <div className="hidden md:flex justify-center">
 
-                        {product && (
+  {product && (
 
-                            <div className="bg-white rounded-2xl border shadow-sm p-4 max-w-sm mx-auto">
+    <div
+      className="
+        relative
+        bg-white
+        rounded-3xl
+        shadow-2xl
+        overflow-hidden
+        max-w-xs
+        w-full
+      "
+    >
 
-                                <div className="flex items-center justify-between mb-3">
+      {/* Product Image */}
 
-                                    <span className="bg-red-100 text-red-600 text-xs font-semibold px-2 py-1 rounded-full">
-                                        Best Seller
-                                    </span>
+      <div className="relative">
 
-                                    <span className="font-bold text-green-600">
-                                        {product.price} QAR
-                                    </span>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="
+            w-full
+            object-cover
+          "
+        />
 
-                                </div>
+        {/* Overlay */}
 
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="w-full h-48 object-contain"
-                                />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-                                <h3 className="font-bold text-lg mt-4">
-                                    {product.name}
-                                </h3>
+        {/* Badge */}
 
-                                <p className="text-gray-500 text-sm mt-2 line-clamp-2">
-                                    {product.description}
-                                </p>
+        <span
+          className="
+            absolute
+            top-4
+            left-4
+            bg-red-500
+            text-white
+            text-xs
+            font-semibold
+            px-3
+            py-1.5
+            rounded-full
+            shadow-lg
+          "
+        >
+          🔥 Best Seller
+        </span>
 
-                                <div className="flex gap-2 mt-4">
+        {/* Price */}
 
-                                    <Link
-                                        href={`/product/${product.slug}`}
-                                        className="flex-1 bg-black text-white text-center py-2 rounded-lg text-sm"
-                                    >
-                                        View
-                                    </Link>
+        <span
+          className="
+            absolute
+            top-4
+            right-4
+            bg-white
+            text-green-600
+            font-bold
+            px-4
+            py-2
+            rounded-full
+            shadow-lg
+          "
+        >
+          {product.price} QAR
+        </span>
 
-                                    <a
-                                        href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 bg-green-600 text-white text-center py-2 rounded-lg text-sm"
-                                    >
-                                        Order
-                                    </a>
+      </div>
 
-                                </div>
+      {/* Content */}
 
-                            </div>
+      <div className="p-5">
 
-                        )}
+        <h3
+          className="
+            text-xl
+            font-bold
+            text-gray-900
+            line-clamp-2
+          "
+        >
+          {product.name}
+        </h3>
 
-                    </div>
+        {/* <p className="mt-2 text-gray-500 text-sm">
+          Premium Quality Car Accessory
+        </p> */}
+
+        <div className="flex items-center gap-1 mt-3 text-yellow-500">
+          ★★★★★
+          <span className="text-gray-400 text-sm ml-2">
+            Top Rated Product
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 mt-3">
+
+          <Link
+            href={`/product/${product.slug}`}
+            className="
+              bg-black
+              hover:bg-gray-800
+              text-white
+              text-center
+              py-2
+              rounded-xl
+              font-medium
+              transition
+            "
+          >
+            View Product
+          </Link>
+
+          <a
+            href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              bg-green-600
+              hover:bg-green-700
+              text-white
+              text-center
+              py-2
+              rounded-xl
+              font-medium
+              transition
+            "
+          >
+            Order Now
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  )}
+
+</div>
 
                 </div>
 
