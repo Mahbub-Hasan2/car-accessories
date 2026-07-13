@@ -62,7 +62,7 @@ export default function ProductsList({
         Found {filtered.length} products
       </p>
 
-      <div className="grid md:grid-cols-4 gap-5">
+      <div className="grid md:grid-cols-4 gap-2 md:gap-5">
 
         {filtered.map((product) => (
           <ProductCard

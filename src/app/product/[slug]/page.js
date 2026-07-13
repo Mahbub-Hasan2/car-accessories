@@ -48,11 +48,11 @@ Price: ${product.price} QAR`
   return (
     <div className="bg-white">
 
-      <div className="max-w-7xl mx-auto px-4 py-6 md:py-10">
+      <div className="max-w-7xl mx-auto px-2 md:px-4 py-6 md:py-10">
 
         {/* Product Area */}
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-14">
+        <div className="grid lg:grid-cols-2 gap-4 md:gap-8 lg:gap-14">
 
           {/* Gallery */}
 

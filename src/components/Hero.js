@@ -15,19 +15,19 @@ export default function Hero({ product }) {
                             🚗 Premium Car Accessories In Qatar
                         </span>
 
-                        <h1 className="mt-4 text-3xl md:text-5xl font-bold leading-tight">
+                        <h1 className="mt-2 md:mt-4 text-md md:text-5xl font-bold leading-tight">
                             Upgrade Your Car
-                            <br />
+                            <br className="hidden md:block" />
                             With Quality Accessories
                         </h1>
 
-                        <p className="mt-4 text-gray-600 text-sm md:text-lg max-w-xl">
+                        <p className="mt-2 md:mt-4 text-gray-600 text-sm md:text-lg max-w-xl">
                             Discover premium car accessories, car covers,
                             sunshades, cleaning tools and more with fast
                             delivery across Qatar.
                         </p>
 
-                        <div className="flex flex-wrap gap-4 md:gap-2 mt-1 md:mt-5">
+                        <div className="flex flex-wrap gap-1 md:gap-2 mt-1 md:mt-5">
 
                             <div className="bg-white md:border rounded-lg md:px-3 py-2 text-sm">
                                 ✓ Fast Delivery

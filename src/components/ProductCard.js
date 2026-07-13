@@ -7,7 +7,8 @@ export default function ProductCard({ product }) {
       className="
         group
         bg-white
-        rounded-2xl
+        rounded-md
+        md:rounded-2xl
         overflow-hidden
         border border-gray-100
         hover:border-orange-200
@@ -71,7 +72,7 @@ export default function ProductCard({ product }) {
           {product.name}
         </h3>
 
-        <div className="mt-3 flex items-center justify-between">
+        <div className="md:mt-3 flex items-center justify-between">
 
           <span
             className="
