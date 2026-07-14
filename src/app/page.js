@@ -29,15 +29,15 @@ export default async function Home() {
   const products = await getProducts();
 
 
-const featuredProducts = products.filter(
-  (item) => item.featured === "yes"
-);
+  const featuredProducts = products.filter(
+    (item) => item.featured === "yes"
+  );
 
-const shuffled = [...featuredProducts]
-  .sort(() => Math.random() - 0.5);
+  const shuffled = [...featuredProducts]
+    .sort(() => Math.random() - 0.5);
 
-const randomFeaturedProducts =
-  shuffled.slice(0, 10);
+  const randomFeaturedProducts =
+    shuffled.slice(0, 10);
 
   return (
     <>
@@ -47,11 +47,7 @@ const randomFeaturedProducts =
         products={randomFeaturedProducts}
       />
 
-      <section className="max-w-7xl mx-auto px-2 md:px-5 py-2 md:py-10">
-
-        <LatestProducts  products={products} />
-
-      </section>
+      <LatestProducts products={products} />
     </>
   );
 }
