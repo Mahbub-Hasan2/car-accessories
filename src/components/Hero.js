@@ -11,7 +11,7 @@ export default function Hero({ product }) {
           md:hidden
           absolute
           inset-0
-      
+      opacity-[0.08]
           bg-center
           bg-cover
         "
