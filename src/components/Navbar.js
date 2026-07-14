@@ -212,23 +212,22 @@ h-16 flex items-center justify-between gap-4
 
           {/* Logo */}
 
-          <Link
-
-            href="/"
-
-            className="
-font-extrabold
-text-xl
-shrink-0
-mr-auto
-"
-
-          >
-
-            Qiftly Auto
-
-          </Link>
-
+    
+<Link
+  href="/"
+  className="shrink-0 mr-auto flex items-center"
+>
+  <img
+    src="/IMG_20260714_113625.png"
+    alt="GariQatar"
+    className="
+      h-10
+      md:h-12
+      w-auto
+      object-contain
+    "
+  />
+</Link>
 
 
 
