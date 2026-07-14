@@ -193,12 +193,12 @@ export default function Hero({ product }) {
 
           {/* Desktop Product Card */}
 
-<div className="hidden md:flex justify-center">
+          <div className="hidden md:flex justify-center">
 
-  {product && (
+            {product && (
 
-    <div
-      className="
+              <div
+                className="
         bg-white
         rounded-[28px]
         overflow-hidden
@@ -211,16 +211,16 @@ export default function Hero({ product }) {
         transition
         duration-300
       "
-    >
+              >
 
-      {/* Image */}
+                {/* Image */}
 
-      <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden">
 
-        <img
-          src={product.image}
-          alt={product.name}
-          className="
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="
             w-full
             h-[380px]
             object-cover
@@ -228,12 +228,12 @@ export default function Hero({ product }) {
             duration-500
             hover:scale-105
           "
-        />
+                  />
 
-        {/* Best Seller */}
+                  {/* Best Seller */}
 
-        <span
-          className="
+                  <span
+                    className="
             absolute
             top-4
             left-4
@@ -246,14 +246,14 @@ export default function Hero({ product }) {
             rounded-full
             shadow-lg
           "
-        >
-          🔥 Best Seller
-        </span>
+                  >
+                    🔥 Best Seller
+                  </span>
 
-        {/* Price */}
+                  {/* Price */}
 
-        <span
-          className="
+                  <span
+                    className="
             absolute
             top-4
             right-4
@@ -265,45 +265,45 @@ export default function Hero({ product }) {
             rounded-full
             shadow-lg
           "
-        >
-          {product.price} QAR
-        </span>
+                  >
+                    {product.price} QAR
+                  </span>
 
-      </div>
+                </div>
 
-      {/* Content */}
+                {/* Content */}
 
-      <div className="p-6">
+                <div className="p-6">
 
-        <h3
-          className="
+                  <h3
+                    className="
             text-2xl
             font-bold
             text-gray-900
             line-clamp-2
             leading-snug
           "
-        >
-          {product.name}
-        </h3>
+                  >
+                    {product.name}
+                  </h3>
 
-        <div className="flex items-center mt-3">
+                  <div className="flex items-center mt-3">
 
-          <span className="text-yellow-500 text-lg">
-            ★★★★★
-          </span>
+                    <span className="text-yellow-500 text-lg">
+                      ★★★★★
+                    </span>
 
-          <span className="ml-2 text-sm text-gray-500">
-            Top Rated Product
-          </span>
+                    <span className="ml-2 text-sm text-gray-500">
+                      Top Rated Product
+                    </span>
 
-        </div>
+                  </div>
 
-        <div className="flex gap-3 mt-6">
+                  <div className="flex gap-3 mt-6">
 
-          <Link
-            href={`/product/${product.slug}`}
-            className="
+                    <Link
+                      href={`/product/${product.slug}`}
+                      className="
               flex-1
               bg-black
               hover:bg-gray-800
@@ -314,15 +314,15 @@ export default function Hero({ product }) {
               font-medium
               transition
             "
-          >
-            View Product
-          </Link>
+                    >
+                      View Product
+                    </Link>
 
-          <a
-            href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
+                    <a
+                      href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
               flex-1
               bg-green-600
               hover:bg-green-700
@@ -333,19 +333,19 @@ export default function Hero({ product }) {
               font-medium
               transition
             "
-          >
-            Order Now
-          </a>
+                    >
+                      Order Now
+                    </a>
 
-        </div>
+                  </div>
 
-      </div>
+                </div>
 
-    </div>
+              </div>
 
-  )}
+            )}
 
-</div>
+          </div>
 
         </div>
 
@@ -353,4 +353,4 @@ export default function Hero({ product }) {
 
     </section>
   );
-                    }
+}
