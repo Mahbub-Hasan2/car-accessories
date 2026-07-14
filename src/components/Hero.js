@@ -1,223 +1,175 @@
 import Link from "next/link";
 
 export default function Hero({ product }) {
-    return (
-        <section className="bg-gradient-to-b from-gray-50 to-white">
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
 
-            <div className="max-w-7xl mx-auto px-4 md:px-6 py-5 md:py-10">
+      {/* Mobile Background Image */}
 
-                <div className="grid lg:grid-cols-2 gap-10 items-center">
+      <div
+        className="
+          md:hidden
+          absolute
+          inset-0
+          opacity-[0.08]
+          bg-center
+          bg-cover
+        "
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200')",
+        }}
+      />
 
-                    {/* Left Content */}
-                    <div>
+      {/* Gradient Overlay */}
 
-                        <span className="inline-flex items-center bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs md:text-sm font-medium">
-                            🚗 Premium Car Accessories In Qatar
-                        </span>
+      <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-white" />
 
-                        <h1 className="mt-2 md:mt-4 text-md md:text-5xl font-bold leading-tight">
-                            Upgrade Your Car
-                            <br className="hidden md:block" />
-                            With Quality Accessories
-                        </h1>
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
 
-                        <p className="mt-2 md:mt-4 text-gray-600 text-sm md:text-lg max-w-xl">
-                            Discover premium car accessories, car covers,
-                            sunshades, cleaning tools and more with fast
-                            delivery across Qatar.
-                        </p>
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-                        <div className="flex flex-wrap gap-1 md:gap-2 mt-1 md:mt-5">
+          {/* Left Content */}
 
-                            <div className="bg-white md:border rounded-lg md:px-3 py-2 text-sm">
-                                ✓ Fast Delivery
-                            </div>
+          <div>
 
-                            <div className="bg-white md:border rounded-lg md:px-3 py-2 text-sm">
-                                ✓ Cash On Delivery
-                            </div>
+            <span
+              className="
+                inline-flex
+                items-center
+                bg-green-100
+                text-green-700
+                px-3
+                py-1
+                rounded-full
+                text-xs
+                md:text-sm
+                font-medium
+              "
+            >
+              🚗 Premium Car Accessories In Qatar
+            </span>
 
-                            <div className="bg-white md:border rounded-lg md:px-3 py-2 text-sm">
-                                ✓ Premium Quality
-                            </div>
+            <h1
+              className="
+                mt-3
+                text-2xl
+                sm:text-3xl
+                md:text-5xl
+                font-bold
+                leading-tight
+                text-gray-900
+              "
+            >
+              Upgrade Your Car
+              <br className="hidden md:block" />
+              With Quality Accessories
+            </h1>
 
-                        </div>
+            <p
+              className="
+                mt-3
+                text-gray-600
+                text-sm
+                md:text-lg
+                max-w-xl
+              "
+            >
+              Discover premium car accessories,
+              sunshades, car covers, cleaning tools
+              and more with fast delivery across Qatar.
+            </p>
 
-                        <div className=" flex gap-2 md:gap-4 md:mt-6">
+            {/* Features */}
 
-                            <Link
-                                href="/products"
-                                className="hidden md:block bg-black text-white px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-sm md:text-base"
-                            >
-                                Shop Now
-                            </Link>
+            <div className="flex flex-wrap gap-2 mt-4">
 
-                            {/* Desktop WhatsApp Button */}
+              <div className="bg-white/80 backdrop-blur px-3 py-2 rounded-full text-xs md:text-sm shadow-sm">
+                ✓ Fast Delivery
+              </div>
 
-                            <a
-                                href="https://wa.me/97471083700"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hidden md:inline-flex border px-6 py-3 rounded-lg text-base"
-                            >
-                                WhatsApp
-                            </a>
+              <div className="bg-white/80 backdrop-blur px-3 py-2 rounded-full text-xs md:text-sm shadow-sm">
+                ✓ Cash On Delivery
+              </div>
 
-                        </div>
-
-                    </div>
-
-                    {/* Right Side Featured Product */}
-                    <div className="hidden md:flex justify-center">
-
-  {product && (
-
-    <div
-      className="
-        relative
-        bg-white
-        rounded-3xl
-        shadow-2xl
-        overflow-hidden
-        max-w-xs
-        w-full
-      "
-    >
-
-      {/* Product Image */}
-
-      <div className="relative">
-
-        <img
-          src={product.image}
-          alt={product.name}
-          className="
-            w-full
-            object-cover
-          "
-        />
-
-        {/* Overlay */}
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-        {/* Badge */}
-
-        <span
-          className="
-            absolute
-            top-4
-            left-4
-            bg-red-500
-            text-white
-            text-xs
-            font-semibold
-            px-3
-            py-1.5
-            rounded-full
-            shadow-lg
-          "
-        >
-          🔥 Best Seller
-        </span>
-
-        {/* Price */}
-
-        <span
-          className="
-            absolute
-            top-4
-            right-4
-            bg-white
-            text-green-600
-            font-bold
-            px-4
-            py-2
-            rounded-full
-            shadow-lg
-          "
-        >
-          {product.price} QAR
-        </span>
-
-      </div>
-
-      {/* Content */}
-
-      <div className="p-5">
-
-        <h3
-          className="
-            text-xl
-            font-bold
-            text-gray-900
-            line-clamp-2
-          "
-        >
-          {product.name}
-        </h3>
-
-        {/* <p className="mt-2 text-gray-500 text-sm">
-          Premium Quality Car Accessory
-        </p> */}
-
-        <div className="flex items-center gap-1 mt-3 text-yellow-500">
-          ★★★★★
-          <span className="text-gray-400 text-sm ml-2">
-            Top Rated Product
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 mt-3">
-
-          <Link
-            href={`/product/${product.slug}`}
-            className="
-              bg-black
-              hover:bg-gray-800
-              text-white
-              text-center
-              py-2
-              rounded-xl
-              font-medium
-              transition
-            "
-          >
-            View Product
-          </Link>
-
-          <a
-            href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              bg-green-600
-              hover:bg-green-700
-              text-white
-              text-center
-              py-2
-              rounded-xl
-              font-medium
-              transition
-            "
-          >
-            Order Now
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  )}
-
-</div>
-
-                </div>
+              <div className="bg-white/80 backdrop-blur px-3 py-2 rounded-full text-xs md:text-sm shadow-sm">
+                ✓ Premium Quality
+              </div>
 
             </div>
 
-        </section>
-    );
-}
+            {/* Mobile CTA */}
+
+            <div className="md:hidden mt-5">
+
+              <Link
+                href="/products"
+                className="
+                  inline-flex
+                  items-center
+                  justify-center
+                  w-full
+                  bg-black
+                  text-white
+                  py-3
+                  rounded-xl
+                  font-medium
+                "
+              >
+                Browse Products
+              </Link>
+
+            </div>
+
+            {/* Desktop Buttons */}
+
+            <div className="hidden md:flex gap-4 mt-6">
+
+              <Link
+                href="/products"
+                className="
+                  bg-black
+                  text-white
+                  px-6
+                  py-3
+                  rounded-xl
+                  font-medium
+                "
+              >
+                Shop Now
+              </Link>
+
+              <a
+                href="https://wa.me/97471083700"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  border
+                  px-6
+                  py-3
+                  rounded-xl
+                  font-medium
+                "
+              >
+                WhatsApp
+              </a>
+
+            </div>
+
+          </div>
+
+          {/* Desktop Product Card */}
+
+          <div className="hidden md:flex justify-center">
+
+            {/* তোমার বর্তমান Product Card এখানেই থাকবে */}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  );
+                }
