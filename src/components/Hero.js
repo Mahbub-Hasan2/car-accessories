@@ -18,7 +18,7 @@ export default function Hero({ product }) {
 
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-10">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
 
         <div className="grid lg:grid-cols-2 gap-10 items-center">
 
@@ -76,10 +76,19 @@ export default function Hero({ product }) {
 
             {/* Features */}
 
-            <div className="flex flex-wrap gap-2 mt-5">
+            <div
+              className="
+                flex
+                gap-2
+                mt-5
+                overflow-x-auto
+                no-scrollbar
+              "
+            >
 
               <div
                 className="
+                  shrink-0
                   bg-white/15
                   backdrop-blur-md
                   border
@@ -99,6 +108,7 @@ export default function Hero({ product }) {
 
               <div
                 className="
+                  shrink-0
                   bg-white/15
                   backdrop-blur-md
                   border
@@ -118,6 +128,7 @@ export default function Hero({ product }) {
 
               <div
                 className="
+                  shrink-0
                   bg-white/15
                   backdrop-blur-md
                   border
@@ -137,44 +148,21 @@ export default function Hero({ product }) {
 
             </div>
 
-            {/* Mobile Button */}
-
-            <div className="md:hidden mt-6">
-
-              <Link
-                href="/products"
-                className="
-                  w-full
-                  flex
-                  items-center
-                  justify-center
-                  bg-green-600
-                  text-white
-                  py-3
-                  rounded-xl
-                  font-medium
-                  shadow-lg
-                "
-              >
-                Browse Products
-              </Link>
-
-            </div>
-
             {/* Desktop Buttons */}
 
-            <div className="hidden md:flex gap-4 mt-6">
+            <div className="hidden md:flex gap-4 mt-8">
 
               <Link
                 href="/products"
                 className="
                   bg-black
+                  hover:bg-gray-800
                   text-white
                   px-6
                   py-3
                   rounded-xl
                   font-medium
-                  hover:bg-gray-800
+                  transition
                 "
               >
                 Shop Now
@@ -186,11 +174,12 @@ export default function Hero({ product }) {
                 rel="noopener noreferrer"
                 className="
                   border
+                  hover:bg-gray-50
                   px-6
                   py-3
                   rounded-xl
                   font-medium
-                  hover:bg-gray-50
+                  transition
                 "
               >
                 WhatsApp
@@ -225,7 +214,7 @@ export default function Hero({ product }) {
                     alt={product.name}
                     className="
                       w-full
-                      h-[320px]
+                      h-[340px]
                       object-cover
                     "
                   />
@@ -302,11 +291,13 @@ export default function Hero({ product }) {
                       rel="noopener noreferrer"
                       className="
                         bg-green-600
+                        hover:bg-green-700
                         text-white
                         text-center
                         py-3
                         rounded-xl
                         font-medium
+                        transition
                       "
                     >
                       Order Now
@@ -328,4 +319,4 @@ export default function Hero({ product }) {
 
     </section>
   );
-                  }
+                    }
