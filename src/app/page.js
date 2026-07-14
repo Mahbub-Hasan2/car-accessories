@@ -3,6 +3,7 @@ import Papa from "papaparse";
 import Hero from "@/components/Hero";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import ProductCard from "@/components/ProductCard";
+import LatestProducts from "@/components/LatestProducts";
 
 async function getProducts() {
 
@@ -28,36 +29,27 @@ export default async function Home() {
   const products = await getProducts();
 
 
-const featuredProduct = products.find(
+const featuredProducts = products.filter(
   (item) => item.featured === "yes"
 );
 
+const shuffled = [...featuredProducts]
+  .sort(() => Math.random() - 0.5);
+
+const randomFeaturedProducts =
+  shuffled.slice(0, 10);
+
   return (
     <>
-      <Hero product={featuredProduct} />
+      <Hero product={featuredProducts[0] || []} />
 
       <FeaturedProducts
-        products={products}
+        products={randomFeaturedProducts}
       />
 
       <section className="max-w-7xl mx-auto px-2 md:px-5 py-2 md:py-10">
 
-        <h2 className=" text-xl md:text-3xl font-bold mb-2 md:mb-8">
-          Latest Products
-        </h2>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-5">
-
-          {products
-            .slice(0, 8)
-            .map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-              />
-            ))}
-
-        </div>
+        <LatestProducts  products={products} />
 
       </section>
     </>

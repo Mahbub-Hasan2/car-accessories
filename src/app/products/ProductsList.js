@@ -8,20 +8,19 @@ export default function ProductsList({
   initialCategory,
 }) {
 
-
   const [products, setProducts] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(20);
 
   useEffect(() => {
 
     async function loadProducts() {
 
-      const res =
-        await fetch("/api/products");
+      const res = await fetch("/api/products");
 
-      const data =
-        await res.json();
+      const data = await res.json();
 
       setProducts(data);
+
     }
 
     loadProducts();
@@ -45,34 +44,88 @@ export default function ProductsList({
         .includes(search);
 
     const matchCategory =
+      !initialCategory ||
       initialCategory === "All" ||
       item.category === initialCategory;
 
     return matchSearch && matchCategory;
+
   });
 
+  const visibleProducts =
+    filtered.slice(0, visibleCount);
+
   return (
-    <div className="max-w-7xl mx-auto p-5">
 
-      <h1 className="text-3xl font-bold mb-2">
-        Products
-      </h1>
+    <div className="max-w-7xl mx-auto px-2 md:px-5 py-5">
 
-      <p className="text-gray-500 mb-6">
-        Found {filtered.length} products
-      </p>
+      <div className="mb-6">
 
-      <div className="grid md:grid-cols-4 gap-2 md:gap-5">
+        <h1 className="text-2xl md:text-4xl font-bold">
+          Products
+        </h1>
 
-        {filtered.map((product) => (
+        <p className="text-gray-500 mt-2">
+          Found {filtered.length} products
+        </p>
+
+      </div>
+
+      <div
+        className="
+          grid
+          grid-cols-2
+          sm:grid-cols-3
+          md:grid-cols-4
+          lg:grid-cols-5
+          gap-2
+          md:gap-5
+        "
+      >
+
+        {visibleProducts.map((product) => (
+
           <ProductCard
             key={product.id}
             product={product}
           />
+
         ))}
 
       </div>
 
+      {visibleCount < filtered.length && (
+
+        <div className="flex justify-center mt-8">
+
+          <button
+
+            onClick={() =>
+              setVisibleCount(
+                prev => prev + 20
+              )
+            }
+
+            className="
+              bg-black
+              text-white
+              px-8
+              py-3
+              rounded-xl
+              font-medium
+              hover:bg-gray-800
+              transition
+            "
+          >
+            Load More Products
+          </button>
+
+        </div>
+
+      )}
+
     </div>
+
   );
+
 }

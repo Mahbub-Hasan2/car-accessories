@@ -191,127 +191,161 @@ export default function Hero({ product }) {
 
           {/* Desktop Product Card */}
 
-          <div className="hidden md:flex justify-center">
+          {/* Desktop Product Card */}
 
-            {product && (
+<div className="hidden md:flex justify-center">
 
-              <div
-                className="
-                  relative
-                  bg-white
-                  rounded-3xl
-                  shadow-2xl
-                  overflow-hidden
-                  max-w-sm
-                  w-full
-                "
-              >
+  {product && (
 
-                <div className="relative">
+    <div
+      className="
+        bg-white
+        rounded-[28px]
+        overflow-hidden
+        shadow-xl
+        border
+        border-gray-100
+        max-w-md
+        w-full
+        hover:shadow-2xl
+        transition
+        duration-300
+      "
+    >
 
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="
-                      w-full
-                      h-[340px]
-                      object-cover
-                    "
-                  />
+      {/* Image */}
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <div className="relative overflow-hidden">
 
-                  <span
-                    className="
-                      absolute
-                      top-4
-                      left-4
-                      bg-red-500
-                      text-white
-                      text-xs
-                      font-semibold
-                      px-3
-                      py-1.5
-                      rounded-full
-                    "
-                  >
-                    🔥 Best Seller
-                  </span>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="
+            w-full
+            h-[380px]
+            object-cover
+            transition
+            duration-500
+            hover:scale-105
+          "
+        />
 
-                  <span
-                    className="
-                      absolute
-                      top-4
-                      right-4
-                      bg-white
-                      text-green-600
-                      font-bold
-                      px-4
-                      py-2
-                      rounded-full
-                    "
-                  >
-                    {product.price} QAR
-                  </span>
+        {/* Best Seller */}
 
-                </div>
+        <span
+          className="
+            absolute
+            top-4
+            left-4
+            bg-orange-500
+            text-white
+            text-xs
+            font-semibold
+            px-3
+            py-2
+            rounded-full
+            shadow-lg
+          "
+        >
+          🔥 Best Seller
+        </span>
 
-                <div className="p-5">
+        {/* Price */}
 
-                  <h3 className="text-xl font-bold line-clamp-2">
-                    {product.name}
-                  </h3>
+        <span
+          className="
+            absolute
+            top-4
+            right-4
+            bg-white
+            text-gray-900
+            font-bold
+            px-4
+            py-2
+            rounded-full
+            shadow-lg
+          "
+        >
+          {product.price} QAR
+        </span>
 
-                  <div className="flex items-center gap-1 mt-3 text-yellow-500">
-                    ★★★★★
-                    <span className="text-gray-400 text-sm ml-2">
-                      Top Rated Product
-                    </span>
-                  </div>
+      </div>
 
-                  <div className="grid grid-cols-2 gap-3 mt-5">
+      {/* Content */}
 
-                    <Link
-                      href={`/product/${product.slug}`}
-                      className="
-                        bg-black
-                        text-white
-                        text-center
-                        py-3
-                        rounded-xl
-                        font-medium
-                      "
-                    >
-                      View Product
-                    </Link>
+      <div className="p-6">
 
-                    <a
-                      href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                        bg-green-600
-                        hover:bg-green-700
-                        text-white
-                        text-center
-                        py-3
-                        rounded-xl
-                        font-medium
-                        transition
-                      "
-                    >
-                      Order Now
-                    </a>
+        <h3
+          className="
+            text-2xl
+            font-bold
+            text-gray-900
+            line-clamp-2
+            leading-snug
+          "
+        >
+          {product.name}
+        </h3>
 
-                  </div>
+        <div className="flex items-center mt-3">
 
-                </div>
+          <span className="text-yellow-500 text-lg">
+            ★★★★★
+          </span>
 
-              </div>
+          <span className="ml-2 text-sm text-gray-500">
+            Top Rated Product
+          </span>
 
-            )}
+        </div>
 
-          </div>
+        <div className="flex gap-3 mt-6">
+
+          <Link
+            href={`/product/${product.slug}`}
+            className="
+              flex-1
+              bg-black
+              hover:bg-gray-800
+              text-white
+              text-center
+              py-3
+              rounded-xl
+              font-medium
+              transition
+            "
+          >
+            View Product
+          </Link>
+
+          <a
+            href={`https://wa.me/97471083700?text=Hello, I want to order ${product.name}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              flex-1
+              bg-green-600
+              hover:bg-green-700
+              text-white
+              text-center
+              py-3
+              rounded-xl
+              font-medium
+              transition
+            "
+          >
+            Order Now
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  )}
+
+</div>
 
         </div>
 
