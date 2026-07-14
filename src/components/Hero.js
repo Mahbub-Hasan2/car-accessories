@@ -17,7 +17,7 @@ export default function Hero({ product }) {
         "
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200')",
+            "url('https://images.pexels.com/photos/193997/pexels-photo-193997.jpeg?_gl=1*1yj2cse*_ga*MTQ5Njc0MzUyMS4xNzg0MDEyOTYz*_ga_8JE65Q40S6*czE3ODQwMTI5NjIkbzEkZzEkdDE3ODQwMTMyMTQkajI3JGwwJGgw')",
         }}
       />
 
