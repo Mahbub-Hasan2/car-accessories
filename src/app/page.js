@@ -26,28 +26,44 @@ async function getProducts() {
 
 export default async function Home() {
 
-  const products = await getProducts();
+  const products =
+    await getProducts();
 
-
-  const featuredProducts = products.filter(
-    (item) => item.featured === "yes"
-  );
-
-  const shuffled = [...featuredProducts]
-    .sort(() => Math.random() - 0.5);
+  const featuredProducts =
+    products.filter(
+      (item) =>
+        item.featured === "yes"
+    );
 
   const randomFeaturedProducts =
-    shuffled.slice(0, 10);
+    [...featuredProducts]
+      .sort(
+        () => Math.random() - 0.5
+      )
+      .slice(0, 10);
+
+  const randomProducts =
+    [...products].sort(
+      () => Math.random() - 0.5
+    );
 
   return (
     <>
-      <Hero product={featuredProducts[0] || []} />
-
-      <FeaturedProducts
-        products={randomFeaturedProducts}
+      <Hero
+        product={
+          featuredProducts[0] || []
+        }
       />
 
-      <LatestProducts products={products} />
+      <FeaturedProducts
+        products={
+          randomFeaturedProducts
+        }
+      />
+
+      <LatestProducts
+        products={randomProducts}
+      />
     </>
   );
 }

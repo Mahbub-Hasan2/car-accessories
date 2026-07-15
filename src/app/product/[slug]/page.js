@@ -37,12 +37,17 @@ export default async function ProductPage({
     notFound();
   }
 
+  const productUrl =
+    `https://qiftlyauto.vercel.app/product/${product.slug}`;
+
   const whatsappUrl =
     `https://wa.me/97471083700?text=${encodeURIComponent(
-      `Hello, I want to order
+      `Hi, I want to order:
 
-Product: ${product.name}
-Price: ${product.price} QAR`
+📦 ${product.name}
+💰 ${product.price} QAR
+
+🔗 ${productUrl}`
     )}`;
 
   return (
