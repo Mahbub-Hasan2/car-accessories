@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Qiftly Auto",
-  description: "Car Accessories Qatar",
+  title: "Gari Qatar",
+  description: "Premium & affordable car accessories in Qatar. Order easily via WhatsApp with delivery across Qatar.",
 };
 
 export default function RootLayout({

@@ -1,23 +1,38 @@
-import Papa from "papaparse";
 import { notFound } from "next/navigation";
 import ProductGallery from "@/components/ProductGallery";
+import getProducts from "@/lib/getProducts";
 
-async function getProducts() {
-  const res = await fetch(
-    "https://docs.google.com/spreadsheets/d/1rHypvbs4XquG6v97B4UTy1hEisWtCyy3TTWXBEiBl3M/export?format=csv&gid=0",
-    {
-      cache: "no-store",
-    }
-  );
+// Set NEXT_PUBLIC_SITE_URL in your Vercel project settings once the real
+// domain is live. Falls back to the old vercel.app URL until then.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://qiftlyauto.vercel.app";
 
-  const csvText = await res.text();
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const products = await getProducts();
+  const product = products.find((item) => item.slug?.trim() === slug?.trim());
 
-  const parsed = Papa.parse(csvText, {
-    header: true,
-    skipEmptyLines: true,
-  });
+  if (!product) {
+    return { title: "Product Not Found - Gari Qatar" };
+  }
 
-  return parsed.data;
+  // Strip HTML tags from the rich-text description for a clean meta description.
+  const plainDescription = (product.description || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 160);
+
+  return {
+    title: `${product.name} - Gari Qatar`,
+    description: plainDescription || `${product.name} available at Gari Qatar. Order via WhatsApp with delivery across Qatar.`,
+    openGraph: {
+      title: product.name,
+      description: plainDescription,
+      images: product.image ? [product.image] : [],
+      url: `${SITE_URL}/product/${product.slug}`,
+    },
+  };
 }
 
 export default async function ProductPage({
@@ -37,8 +52,10 @@ export default async function ProductPage({
     notFound();
   }
 
+  const isFeatured = product.featured === "yes";
+
   const productUrl =
-    `https://qiftlyauto.vercel.app/product/${product.slug}`;
+    `${SITE_URL}/product/${product.slug}`;
 
   const whatsappUrl =
     `https://wa.me/97471083700?text=${encodeURIComponent(
@@ -72,9 +89,11 @@ export default async function ProductPage({
 
           <div>
 
-            <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-orange-500">
-              Best Seller
-            </div>
+            {isFeatured && (
+              <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-orange-500">
+                Featured Product
+              </div>
+            )}
 
             <h1
               className="
@@ -89,18 +108,6 @@ export default async function ProductPage({
               {product.name}
             </h1>
 
-            <div className="flex items-center gap-2 mt-4">
-
-              <div className="text-yellow-500">
-                ★★★★★
-              </div>
-
-              <span className="text-sm text-gray-500">
-                Premium Quality
-              </span>
-
-            </div>
-
             <div className="mt-6">
 
               <div className="flex items-end gap-3">
@@ -109,14 +116,10 @@ export default async function ProductPage({
                   {product.price} QAR
                 </span>
 
-                <span className="text-gray-400 line-through">
-                  {Number(product.price) + 20} QAR
-                </span>
-
               </div>
 
               <p className="text-sm text-gray-500 mt-2">
-                Fast Delivery Across Qatar
+                Delivery Available Across Qatar
               </p>
 
             </div>

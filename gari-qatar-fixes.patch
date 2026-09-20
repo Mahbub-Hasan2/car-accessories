@@ -1,0 +1,397 @@
+diff --git a/src/app/about/page.js b/src/app/about/page.js
+index a7caf46..cf94b74 100644
+--- a/src/app/about/page.js
++++ b/src/app/about/page.js
+@@ -1,3 +1,9 @@
++export const metadata = {
++  title: "About Us - Gari Qatar",
++  description:
++    "Gari Qatar is a Qatar-based online car accessories store offering practical, affordable products with easy WhatsApp ordering.",
++};
++
+ export default function AboutPage() {
+   return (
+     <main className="bg-gray-50">
+@@ -24,7 +30,7 @@ export default function AboutPage() {
+             md:text-5xl
+             font-extrabold
+           ">
+-            About Qiftly Auto
++            About Gari Qatar
+           </h1>
+ 
+ 
+@@ -87,7 +93,7 @@ export default function AboutPage() {
+               text-gray-600
+               leading-8
+             ">
+-              Qiftly Auto is a Qatar-based online car
++              Gari Qatar is a Qatar-based online car
+               accessories store focused on making vehicle
+               upgrades simple and convenient.
+               We carefully select useful products that
+@@ -240,7 +246,7 @@ export default function AboutPage() {
+             font-bold
+             text-center
+           ">
+-            Why Choose Qiftly Auto?
++            Why Choose Gari Qatar?
+           </h2>
+ 
+ 
+diff --git a/src/app/api/products/route.js b/src/app/api/products/route.js
+index fa28ebf..991c49a 100644
+--- a/src/app/api/products/route.js
++++ b/src/app/api/products/route.js
+@@ -1,21 +1,6 @@
+-
+-
+-import Papa from "papaparse";
++import getProducts from "@/lib/getProducts";
+ 
+ export async function GET() {
+-  const res = await fetch(
+-    "https://docs.google.com/spreadsheets/d/1rHypvbs4XquG6v97B4UTy1hEisWtCyy3TTWXBEiBl3M/export?format=csv&gid=0",
+-    {
+-      cache: "no-store",
+-    }
+-  );
+-
+-  const csvText = await res.text();
+-
+-  const parsed = Papa.parse(csvText, {
+-    header: true,
+-    skipEmptyLines: true,
+-  });
+-
+-  return Response.json(parsed.data);
+-}
+\ No newline at end of file
++  const products = await getProducts();
++  return Response.json(products);
++}
+diff --git a/src/app/contact/page.js b/src/app/contact/page.js
+index 6f58cc6..cc27a90 100644
+--- a/src/app/contact/page.js
++++ b/src/app/contact/page.js
+@@ -1,3 +1,9 @@
++export const metadata = {
++  title: "Contact Us - Gari Qatar",
++  description:
++    "Contact Gari Qatar via WhatsApp, phone, or email for car accessory orders and support across Qatar.",
++};
++
+ export default function ContactPage() {
+   return (
+     <main className="bg-gray-50 min-h-screen py-12">
+@@ -27,7 +33,7 @@ export default function ContactPage() {
+             mt-3
+             text-gray-600
+           ">
+-            Need help? Contact Qiftly Auto anytime.
++            Need help? Contact Gari Qatar anytime.
+           </p>
+ 
+         </div>
+diff --git a/src/app/layout.js b/src/app/layout.js
+index ca79ac5..faf43d3 100644
+--- a/src/app/layout.js
++++ b/src/app/layout.js
+@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
+ import Footer from "@/components/Footer";
+ 
+ export const metadata = {
+-  title: "Qiftly Auto",
+-  description: "Car Accessories Qatar",
++  title: "Gari Qatar",
++  description: "Premium & affordable car accessories in Qatar. Order easily via WhatsApp with delivery across Qatar.",
+ };
+ 
+ export default function RootLayout({
+diff --git a/src/app/page.js b/src/app/page.js
+index c117b16..8a2cfb0 100644
+--- a/src/app/page.js
++++ b/src/app/page.js
+@@ -1,28 +1,8 @@
+-import Papa from "papaparse";
+-
+ import Hero from "@/components/Hero";
+ import FeaturedProducts from "@/components/FeaturedProducts";
+ import ProductCard from "@/components/ProductCard";
+ import LatestProducts from "@/components/LatestProducts";
+-
+-async function getProducts() {
+-
+-  const res = await fetch(
+-    "https://docs.google.com/spreadsheets/d/1rHypvbs4XquG6v97B4UTy1hEisWtCyy3TTWXBEiBl3M/export?format=csv&gid=0",
+-    {
+-      cache: "no-store",
+-    }
+-  );
+-
+-  const csvText = await res.text();
+-
+-  const parsed = Papa.parse(csvText, {
+-    header: true,
+-    skipEmptyLines: true,
+-  });
+-
+-  return parsed.data;
+-}
++import getProducts from "@/lib/getProducts";
+ 
+ export default async function Home() {
+ 
+diff --git a/src/app/product/[slug]/page.js b/src/app/product/[slug]/page.js
+index 70a4a54..64896fb 100644
+--- a/src/app/product/[slug]/page.js
++++ b/src/app/product/[slug]/page.js
+@@ -1,23 +1,38 @@
+-import Papa from "papaparse";
+ import { notFound } from "next/navigation";
+ import ProductGallery from "@/components/ProductGallery";
++import getProducts from "@/lib/getProducts";
+ 
+-async function getProducts() {
+-  const res = await fetch(
+-    "https://docs.google.com/spreadsheets/d/1rHypvbs4XquG6v97B4UTy1hEisWtCyy3TTWXBEiBl3M/export?format=csv&gid=0",
+-    {
+-      cache: "no-store",
+-    }
+-  );
++// Set NEXT_PUBLIC_SITE_URL in your Vercel project settings once the real
++// domain is live. Falls back to the old vercel.app URL until then.
++const SITE_URL =
++  process.env.NEXT_PUBLIC_SITE_URL || "https://qiftlyauto.vercel.app";
+ 
+-  const csvText = await res.text();
++export async function generateMetadata({ params }) {
++  const { slug } = await params;
++  const products = await getProducts();
++  const product = products.find((item) => item.slug?.trim() === slug?.trim());
+ 
+-  const parsed = Papa.parse(csvText, {
+-    header: true,
+-    skipEmptyLines: true,
+-  });
++  if (!product) {
++    return { title: "Product Not Found - Gari Qatar" };
++  }
+ 
+-  return parsed.data;
++  // Strip HTML tags from the rich-text description for a clean meta description.
++  const plainDescription = (product.description || "")
++    .replace(/<[^>]+>/g, " ")
++    .replace(/\s+/g, " ")
++    .trim()
++    .slice(0, 160);
++
++  return {
++    title: `${product.name} - Gari Qatar`,
++    description: plainDescription || `${product.name} available at Gari Qatar. Order via WhatsApp with delivery across Qatar.`,
++    openGraph: {
++      title: product.name,
++      description: plainDescription,
++      images: product.image ? [product.image] : [],
++      url: `${SITE_URL}/product/${product.slug}`,
++    },
++  };
+ }
+ 
+ export default async function ProductPage({
+@@ -37,8 +52,10 @@ export default async function ProductPage({
+     notFound();
+   }
+ 
++  const isFeatured = product.featured === "yes";
++
+   const productUrl =
+-    `https://qiftlyauto.vercel.app/product/${product.slug}`;
++    `${SITE_URL}/product/${product.slug}`;
+ 
+   const whatsappUrl =
+     `https://wa.me/97471083700?text=${encodeURIComponent(
+@@ -72,9 +89,11 @@ export default async function ProductPage({
+ 
+           <div>
+ 
+-            <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-orange-500">
+-              Best Seller
+-            </div>
++            {isFeatured && (
++              <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-orange-500">
++                Featured Product
++              </div>
++            )}
+ 
+             <h1
+               className="
+@@ -89,18 +108,6 @@ export default async function ProductPage({
+               {product.name}
+             </h1>
+ 
+-            <div className="flex items-center gap-2 mt-4">
+-
+-              <div className="text-yellow-500">
+-                ★★★★★
+-              </div>
+-
+-              <span className="text-sm text-gray-500">
+-                Premium Quality
+-              </span>
+-
+-            </div>
+-
+             <div className="mt-6">
+ 
+               <div className="flex items-end gap-3">
+@@ -109,14 +116,10 @@ export default async function ProductPage({
+                   {product.price} QAR
+                 </span>
+ 
+-                <span className="text-gray-400 line-through">
+-                  {Number(product.price) + 20} QAR
+-                </span>
+-
+               </div>
+ 
+               <p className="text-sm text-gray-500 mt-2">
+-                Fast Delivery Across Qatar
++                Delivery Available Across Qatar
+               </p>
+ 
+             </div>
+@@ -211,4 +214,4 @@ export default async function ProductPage({
+ 
+     </div>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/src/app/products/page.js b/src/app/products/page.js
+index 8bfedfe..42fa32a 100644
+--- a/src/app/products/page.js
++++ b/src/app/products/page.js
+@@ -1,5 +1,11 @@
+ import ProductsList from "./ProductsList";
+ 
++export const metadata = {
++  title: "All Products - Gari Qatar",
++  description:
++    "Browse car covers, sunshades, chargers, cleaning tools and more car accessories in Qatar. Order via WhatsApp with delivery across Qatar.",
++};
++
+ export default async function ProductsPage({
+   searchParams,
+ }) {
+diff --git a/src/components/Footer.js b/src/components/Footer.js
+index 87ea7c8..73de0e0 100644
+--- a/src/components/Footer.js
++++ b/src/components/Footer.js
+@@ -23,7 +23,7 @@ export default function Footer() {
+               font-extrabold
+               mb-4
+             ">
+-              Qiftly Auto
++              Gari Qatar
+             </h2>
+ 
+ 
+@@ -297,7 +297,7 @@ export default function Footer() {
+ 
+ 
+           <p>
+-            © {new Date().getFullYear()} Qiftly Auto.
++            © {new Date().getFullYear()} Gari Qatar.
+             All rights reserved.
+           </p>
+ 
+diff --git a/src/components/Hero.js b/src/components/Hero.js
+index dd0c324..d6bae60 100644
+--- a/src/components/Hero.js
++++ b/src/components/Hero.js
+@@ -289,12 +289,8 @@ export default function Hero({ product }) {
+ 
+                   <div className="flex items-center mt-3">
+ 
+-                    <span className="text-yellow-500 text-lg">
+-                      ★★★★★
+-                    </span>
+-
+-                    <span className="ml-2 text-sm text-gray-500">
+-                      Top Rated Product
++                    <span className="text-sm text-gray-500">
++                      Premium Quality
+                     </span>
+ 
+                   </div>
+diff --git a/src/lib/getProducts.js b/src/lib/getProducts.js
+new file mode 100644
+index 0000000..c000afb
+--- /dev/null
++++ b/src/lib/getProducts.js
+@@ -0,0 +1,32 @@
++import Papa from "papaparse";
++
++const SHEET_CSV_URL =
++  "https://docs.google.com/spreadsheets/d/1rHypvbs4XquG6v97B4UTy1hEisWtCyy3TTWXBEiBl3M/export?format=csv&gid=0";
++
++/**
++ * Fetches the product sheet and returns it as an array of product objects.
++ *
++ * - Cached for 60 seconds (Next.js "revalidate") instead of "no-store", so a
++ *   single page view doesn't re-download the whole sheet from Google every
++ *   time. Change the number below if you want fresher/staler data.
++ * - The "op" column (your cost / purchase price) is stripped out before the
++ *   data ever leaves the server, so it can never show up in the public
++ *   /api/products response, page source, or dev tools network tab.
++ */
++export default async function getProducts() {
++  const res = await fetch(SHEET_CSV_URL, {
++    next: { revalidate: 60 },
++  });
++
++  const csvText = await res.text();
++
++  const parsed = Papa.parse(csvText, {
++    header: true,
++    skipEmptyLines: true,
++  });
++
++  return parsed.data.map((product) => {
++    const { op, ...publicProduct } = product;
++    return publicProduct;
++  });
++}
+diff --git a/src/lib/products.js b/src/lib/products.js
+deleted file mode 100644
+index 41c01ba..0000000
+--- a/src/lib/products.js
++++ /dev/null
+@@ -1,25 +0,0 @@
+-const products = [
+-  {
+-    id: 1,
+-    slug: "car-umbrella",
+-    name: "Car Umbrella",
+-    price: 29,
+-    image:
+-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
+-    description:
+-      "Protect your car from Qatar heat."
+-  },
+-
+-  {
+-    id: 2,
+-    slug: "car-vacuum",
+-    name: "Car Vacuum Cleaner",
+-    price: 59,
+-    image:
+-      "https://images.unsplash.com/photo-1489824904134-891ab64532f1",
+-    description:
+-      "Portable vacuum cleaner."
+-  }
+-];
+-
+-export default products;
+\ No newline at end of file

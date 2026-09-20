@@ -23,7 +23,7 @@ export default function Footer() {
               font-extrabold
               mb-4
             ">
-              Qiftly Auto
+              Gari Qatar
             </h2>
 
 
@@ -297,7 +297,7 @@ export default function Footer() {
 
 
           <p>
-            © {new Date().getFullYear()} Qiftly Auto.
+            © {new Date().getFullYear()} Gari Qatar.
             All rights reserved.
           </p>
 

@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Contact Us - Gari Qatar",
+  description:
+    "Contact Gari Qatar via WhatsApp, phone, or email for car accessory orders and support across Qatar.",
+};
+
 export default function ContactPage() {
   return (
     <main className="bg-gray-50 min-h-screen py-12">
@@ -27,7 +33,7 @@ export default function ContactPage() {
             mt-3
             text-gray-600
           ">
-            Need help? Contact Qiftly Auto anytime.
+            Need help? Contact Gari Qatar anytime.
           </p>
 
         </div>

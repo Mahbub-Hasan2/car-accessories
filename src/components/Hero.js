@@ -289,12 +289,8 @@ export default function Hero({ product }) {
 
                   <div className="flex items-center mt-3">
 
-                    <span className="text-yellow-500 text-lg">
-                      ★★★★★
-                    </span>
-
-                    <span className="ml-2 text-sm text-gray-500">
-                      Top Rated Product
+                    <span className="text-sm text-gray-500">
+                      Premium Quality
                     </span>
 
                   </div>

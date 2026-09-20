@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "About Us - Gari Qatar",
+  description:
+    "Gari Qatar is a Qatar-based online car accessories store offering practical, affordable products with easy WhatsApp ordering.",
+};
+
 export default function AboutPage() {
   return (
     <main className="bg-gray-50">
@@ -24,7 +30,7 @@ export default function AboutPage() {
             md:text-5xl
             font-extrabold
           ">
-            About Qiftly Auto
+            About Gari Qatar
           </h1>
 
 
@@ -87,7 +93,7 @@ export default function AboutPage() {
               text-gray-600
               leading-8
             ">
-              Qiftly Auto is a Qatar-based online car
+              Gari Qatar is a Qatar-based online car
               accessories store focused on making vehicle
               upgrades simple and convenient.
               We carefully select useful products that
@@ -240,7 +246,7 @@ export default function AboutPage() {
             font-bold
             text-center
           ">
-            Why Choose Qiftly Auto?
+            Why Choose Gari Qatar?
           </h2>
 
 
